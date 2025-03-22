@@ -72,11 +72,11 @@ void pffft_validate_N(int N, int cplx) {
   int pass;
 
   if (!s) { printf("Skipping N=%d, not supported\n", N); return; }
-  ref = pffft_aligned_malloc(Nbytes);
-  in = pffft_aligned_malloc(Nbytes);
-  out = pffft_aligned_malloc(Nbytes);
-  tmp = pffft_aligned_malloc(Nbytes);
-  tmp2 = pffft_aligned_malloc(Nbytes);
+  ref = pffft_aligned_calloc(Nfloat, sizeof(float));
+  in = pffft_aligned_calloc(Nfloat, sizeof(float));
+  out = pffft_aligned_calloc(Nfloat, sizeof(float));
+  tmp = pffft_aligned_calloc(Nfloat, sizeof(float));
+  tmp2 = pffft_aligned_calloc(Nfloat, sizeof(float));
 
   for (pass=0; pass < 2; ++pass) {
     float ref_max = 0;
@@ -235,7 +235,9 @@ void show_output(const char *name, int N, int cplx, float flops, float t0, float
 void benchmark_ffts(int N, int cplx) {
   int Nfloat = (cplx ? N*2 : N);
   int Nbytes = Nfloat * sizeof(float);
-  float *X = pffft_aligned_malloc(Nbytes), *Y = pffft_aligned_malloc(Nbytes), *Z = pffft_aligned_malloc(Nbytes);
+  float *X = pffft_aligned_calloc(Nfloat, sizeof(float)),
+        *Y = pffft_aligned_calloc(Nfloat, sizeof(float)),
+        *Z = pffft_aligned_calloc(Nfloat, sizeof(float));
 
   double t0, t1, flops;
 

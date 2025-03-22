@@ -52,6 +52,7 @@
 */
 
 #include "fftpack.h"
+#define M_PI 3.141592654
 #include <math.h>
 
 typedef fftpack_real real;
